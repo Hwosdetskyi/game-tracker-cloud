@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd frontend
-          npm ci
+          npm install
       
       - name: Build frontend
         run: |
@@ -100,7 +100,6 @@ jobs:
           push: false
           tags: game-tracker-frontend:${{ github.sha }}
 
-  # Sekretna: Musisz go skonfigurować w GitHub Settings → Secrets
   # AZURE_CREDENTIALS, AZURE_REGISTRY_USERNAME, AZURE_REGISTRY_PASSWORD
   
   deploy-azure:
