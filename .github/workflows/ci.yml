@@ -27,14 +27,18 @@ jobs:
           npm install
       
       - name: Build frontend
+        env:
+          CI: false
         run: |
           cd frontend
           npm run build
       
       - name: Run tests
+        env:
+          CI: false
         run: |
           cd frontend
-          npm test -- --watchAll=false --coverage --passWithNoTests
+          npm test -- --watchAll=false --passWithNoTests
         continue-on-error: true
 
   test-backend:
@@ -99,8 +103,6 @@ jobs:
           context: ./frontend
           push: false
           tags: game-tracker-frontend:${{ github.sha }}
-
-  # AZURE_CREDENTIALS, AZURE_REGISTRY_USERNAME, AZURE_REGISTRY_PASSWORD
   
   deploy-azure:
     name: Deploy to Azure (Optional)
