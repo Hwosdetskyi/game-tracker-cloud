@@ -9,4 +9,4 @@ COPY . /var/www/html/
 # Set working directory
 WORKDIR /var/www/html
 
-EXPOSE 80
+EXPOSE 8080
