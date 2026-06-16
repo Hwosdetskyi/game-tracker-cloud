@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
 
-$host = getenv('DB_HOST') ?: 'localhost';
+$host = '127.0.0.1';
 $db_name = getenv('DB_NAME') ?: 'game_tracker';
 $username = getenv('DB_USER') ?: 'root'; 
 $password = getenv('DB_PASSWORD') !== false ? getenv('DB_PASSWORD') : '';     
