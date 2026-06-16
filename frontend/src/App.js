@@ -30,8 +30,16 @@ function App() {
         headers: { 'Authorization': user.userId }
       });
       const data = await res.json();
-      if (res.ok) setGames(data);
-    } catch (err) { console.error("Error loading games:", err); }
+      if (res.ok && Array.isArray(data)) {
+        setGames(data);
+      } else {
+        console.error("Failed to load games or data is not an array:", data);
+        setGames([]);
+      }
+    } catch (err) { 
+      console.error("Error loading games:", err); 
+      setGames([]);
+    }
   };
 
   const handleAuthSubmit = async (e) => {
@@ -46,7 +54,10 @@ function App() {
         body: JSON.stringify(authForm)
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Something went wrong');
+      
+      if (!res.ok || data.error) {
+        throw new Error(data.error || 'Something went wrong');
+      }
 
       if (isRegister) {
         setAuthForm({ username: '', password: '' });
@@ -64,8 +75,11 @@ function App() {
         localStorage.setItem('game_user', JSON.stringify(data));
         setUser(data);
       }
-    } catch (err) { setAuthError(err.message); }
-    finally { setIsAuthLoading(false); }
+    } catch (err) { 
+      setAuthError(err.message); 
+    } finally { 
+      setIsAuthLoading(false); 
+    }
   };
 
   const handleLogout = () => {
